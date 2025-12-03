@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="ha.webp" type="image/x-icon">
+  <title>Carrot - Healthy Foods</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          keyframes: {
+            float: {
+              '0%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-20px)' },
+              '100%': { transform: 'translateY(0px)' },
+            },
+          },
+          animation: {
+            float: 'float infinite ease-in-out',
+          },
+        },
+      }
+    }
+  </script>
+</head>
+<body class="bg-gray-100">
+
+<!-- Full Header -->
+<header class="shadow-md">
+
+  <!-- Top Navbar: Logo + Buy Now -->
+  <div class="bg-gray-900 text-white flex justify-between items-center px-6 py-3">
+    <div class="text-2xl font-bold">Carrot</div>
+    <button class="bg-orange-500 hover:bg-orange-600 px-4 py-2 rounded transition">signup/login</button>
+  </div>
+
+  <!-- Middle Navbar: Logo + Search + Account/Wishlist/Cart -->
+  <div class="bg-white text-black flex justify-between items-center px-6 py-3 border-b">
+    <!-- Logo -->
+    <div class="flex items-center">
+      <img src="make carrot logo.jpg" alt="Carrot Logo" class="h-10 mr-4">
+    </div>
+    <!-- Search -->
+    <div class="flex items-center gap-2">
+      <input type="text" placeholder="Search fruits, vegetables..." id="searchInput" class="border rounded px-3 py-2 w-60 focus:outline-none focus:ring-2 focus:ring-orange-500">
+      <button onclick="performSearch()" class="bg-orange-500 hover:bg-orange-600 text-white px-3 py-2 rounded">🔍</button>
+    </div>
+    <!-- Account/Wishlist/Cart -->
+    <div class="flex gap-3">
+      <a href="account.html" class="flex flex-col items-center hover:text-orange-500 transition">
+  <span class="text-xl">👤</span>
+  <span class="text-sm">Account</span>
+</a>
+
+
+
+      <button id="wishlistBtn" class="px-4 py-2 text-black hover:text-orange-500">
+  ❤️ Wishlist
+</button>
+
+      <button class="border px-3 py-2 rounded hover:bg-black hover:text-white transition">🛒 Cart</button>
+    </div>
+  </div>
+
+  <!-- Bottom Navbar: Menu with Dropdowns -->
+  <nav class="bg-orange-500 px-6 py-3 relative z-50">
+    <ul class="flex gap-6">
+      <!-- Home -->
+      <li class="relative group">
+        <button class="text-white font-semibold px-3 py-2 rounded hover:bg-orange-600 transition">Home ▼</button>
+        <ul class="absolute left-0 top-full mt-1 bg-white text-black rounded shadow-lg hidden group-hover:block z-50">
+          <li><a href="#" class="block px-4 py-2 hover:bg-orange-500 hover:text-white">Home 1</a></li>
+          <li><a href="#" class="block px-4 py-2 hover:bg-orange-500 hover:text-white">Home 2</a></li>
+          <li><a href="#" class="block px-4 py-2 hover:bg-orange-500 hover:text-white">Home 3</a></li>
+        </ul>
+      </li>
+      <!-- Category -->
+      <li class="relative group">
+        <button class="text-white font-semibold px-3 py-2 rounded hover:bg-orange-600 transition">Category ▼</button>
+        <ul class="absolute left-0 top-full mt-1 bg-white text-black rounded shadow-lg hidden group-hover:block z-50">
+          <li><a href="#" class="block px-4 py-2 hover:bg-orange-500 hover:text-white">Fruits</a></li>
+          <li><a href="#" class="block px-4 py-2 hover:bg-orange-500 hover:text-white">Vegetables</a></li>
+          <li><a href="#" class="block px-4 py-2 hover:bg-orange-500 hover:text-white">Healthy Snacks</a></li>
+        </ul>
+      </li>
+      <!-- Product Pages -->
+      <li class="relative group">
+        <button class="text-white font-semibold px-3 py-2 rounded hover:bg-orange-600 transition">Product Pages ▼</button>
+        <ul class="absolute left-0 top-full mt-1 bg-white text-black rounded shadow-lg hidden group-hover:block z-50">
+          <li><a href="#" class="block px-4 py-2 hover:bg-orange-500 hover:text-white">Product 1</a></li>
+          <li><a href="#" class="block px-4 py-2 hover:bg-orange-500 hover:text-white">Product 2</a></li>
+        </ul>
+      </li>
+      <!-- Blog -->
+      <li class="relative group">
+        <button class="text-white font-semibold px-3 py-2 rounded hover:bg-orange-600 transition">Blog ▼</button>
+        <ul class="absolute left-0 top-full mt-1 bg-white text-black rounded shadow-lg hidden group-hover:block z-50">
+          <li><a href="#" class="block px-4 py-2 hover:bg-orange-500 hover:text-white">Blog Post 1</a></li>
+          <li><a href="#" class="block px-4 py-2 hover:bg-orange-500 hover:text-white">Blog Post 2</a></li>
+        </ul>
+      </li>
+      <!-- Elements -->
+      <li class="relative group">
+        <button class="text-white font-semibold px-3 py-2 rounded hover:bg-orange-600 transition">Elements ▼</button>
+        <ul class="absolute left-0 top-full mt-1 bg-white text-black rounded shadow-lg hidden group-hover:block z-50">
+          <li><a href="#" class="block px-4 py-2 hover:bg-orange-500 hover:text-white">Button Styles</a></li>
+          <li><a href="#" class="block px-4 py-2 hover:bg-orange-500 hover:text-white">Cards</a></li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+</header>
+
+<!-- Hero Section -->
+<section class="relative w-full h-screen bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&w=1950&q=80');">
+  
+  <!-- Overlay -->
+  <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+
+  <!-- Content -->
+  <div class="relative z-10 flex flex-col items-center justify-center h-full text-center px-4">
+    <h1 class="text-5xl md:text-6xl font-bold text-white mb-4">Fresh Fruits & Vegetables Delivered</h1>
+    <p class="text-xl md:text-2xl text-white mb-8">Eat healthy, live healthy. Explore our organic collection today!</p>
+    <button class="bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded text-lg transition">Shop Now</button>
+  </div>
+
+  <!-- Infinite Scroll Elements -->
+  <div id="floating-elements" class="absolute inset-0 overflow-hidden"></div>
+</section>
+
+<!-- Card Section -->
+<section class="py-16 bg-gray-100">
+  <div class="container mx-auto px-6">
+    <h2 class="text-3xl font-bold text-center mb-10">Our Fresh Products</h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+      <!-- First Card: Buttons -->
+      <div class="bg-white rounded-lg shadow-lg p-6 flex flex-col gap-4">
+        <h3 class="text-xl font-semibold mb-4">Choose Category</h3>
+        <button onclick="updateCards('vegetables')" class="bg-white text-black border border-gray-300 hover:bg-black hover:text-white px-4 py-2 rounded transition">Fresh Vegetables & Fruits</button>
+        <button onclick="updateCards('apple')" class="bg-white text-black border border-gray-300 hover:bg-black hover:text-white px-4 py-2 rounded transition">Apple</button>
+        <button onclick="updateCards('mango')" class="bg-white text-black border border-gray-300 hover:bg-black hover:text-white px-4 py-2 rounded transition">Mango</button>
+        <button onclick="updateCards('strawberry')" class="bg-white text-black border border-gray-300 hover:bg-black hover:text-white px-4 py-2 rounded transition">Strawberry</button>
+      </div>
+
+      <!-- Second Card: Image -->
+      <div id="card1" class="bg-white rounded-lg shadow-lg p-4 flex items-center justify-center">
+        <img src="images (2).jpg" alt="" class="rounded-lg">
+      </div>
+
+      <!-- Third Card: Image -->
+      <div id="card2" class="bg-white rounded-lg shadow-lg p-4 flex items-center justify-center">
+        <img src="ve.jpg" alt="" class="rounded-lg">
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Popular Products Section -->
+<section class="py-16 bg-white">
+  <div class="container mx-auto px-6">
+    <h2 class="text-3xl font-bold text-center mb-10">Popular Products</h2>
+
+    <!-- Grid of products -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8" id="productGrid">
+      <!-- Product Card 1 -->
+      <div class="bg-gray-100 rounded-lg shadow-lg overflow-hidden hover:shadow-2xl transition p-4">
+        <img src="aple.avif" alt="Apples" class="w-full h-48 object-cover mb-4 rounded-lg">
+        <h3 class="text-xl font-semibold mb-2">Fresh Apples</h3>
+        <p class="text-gray-700 mb-2">Crisp and juicy apples directly from the farm.</p>
+        <div class="flex items-center mb-2 text-yellow-400">★★★★☆</div>
+        <p class="text-lg font-bold mb-2">$4.99 / kg</p>
+        <button class="addToCart bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded w-full transition"
+          data-name="Fresh Apples" data-price="4.99">Add to Cart</button>
+      </div>
+
+      <!-- Product Card 2 -->
+      <div class="bg-gray-100 rounded-lg shadow-lg overflow-hidden hover:shadow-2xl transition p-4">
+        <img src="images.jpg" alt="Mangoes" class="w-full h-48 object-cover mb-4 rounded-lg">
+        <h3 class="text-xl font-semibold mb-2">Organic Mangoes</h3>
+        <p class="text-gray-700 mb-2">Sweet and ripe mangoes, perfect for smoothies.</p>
+        <div class="flex items-center mb-2 text-yellow-400">★★★★★</div>
+        <p class="text-lg font-bold mb-2">$6.99 / kg</p>
+        <button class="addToCart bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded w-full transition"
+          data-name="Organic Mangoes" data-price="6.99">Add to Cart</button>
+      </div>
+
+      <!-- Product Card 3 -->
+      <div class="bg-gray-100 rounded-lg shadow-lg overflow-hidden hover:shadow-2xl transition p-4">
+        <img src="images (3).jpg" alt="Strawberries" class="w-full h-48 object-cover mb-4 rounded-lg">
+        <h3 class="text-xl font-semibold mb-2">Strawberries</h3>
+        <p class="text-gray-700 mb-2">Freshly picked strawberries, sweet and juicy.</p>
+        <div class="flex items-center mb-2 text-yellow-400">★★★★☆</div>
+        <p class="text-lg font-bold mb-2">$5.99 / kg</p>
+        <button class="addToCart bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded w-full transition"
+          data-name="Strawberries" data-price="5.99">Add to Cart</button>
+      </div>
+
+      <!-- Product Card 4 -->
+      <div class="bg-gray-100 rounded-lg shadow-lg overflow-hidden hover:shadow-2xl transition p-4">
+        <img src="bananas-1354785_1920-1024x683.avif" alt="Bananas" class="w-full h-48 object-cover mb-4 rounded-lg">
+        <h3 class="text-xl font-semibold mb-2">Bananas</h3>
+        <p class="text-gray-700 mb-2">Ripe bananas, perfect for a healthy snack.</p>
+        <div class="flex items-center mb-2 text-yellow-400">★★★★★</div>
+        <p class="text-lg font-bold mb-2">$2.99 / kg</p>
+        <button class="addToCart bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded w-full transition"
+          data-name="Bananas" data-price="2.99">Add to Cart</button>
+      </div>
+
+      <!-- Product Card 5 -->
+      <div class="bg-gray-100 rounded-lg shadow-lg overflow-hidden hover:shadow-2xl transition p-4">
+        <img src="images (5).jpg" alt="Grapes" class="w-full h-48 object-cover mb-4 rounded-lg">
+        <h3 class="text-xl font-semibold mb-2">Grapes</h3>
+        <p class="text-gray-700 mb-2">Fresh green grapes full of flavor and nutrients.</p>
+        <div class="flex items-center mb-2 text-yellow-400">★★★★☆</div>
+        <p class="text-lg font-bold mb-2">$3.99 / kg</p>
+        <button class="addToCart bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded w-full transition"
+          data-name="Grapes" data-price="3.99">Add to Cart</button>
+      </div>
+
+      <!-- Product Card 6 -->
+      <div class="bg-gray-100 rounded-lg shadow-lg overflow-hidden hover:shadow-2xl transition p-4">
+        <img src="photo.avif" alt="Oranges" class="w-full h-48 object-cover mb-4 rounded-lg">
+        <h3 class="text-xl font-semibold mb-2">Oranges</h3>
+        <p class="text-gray-700 mb-2">Juicy oranges packed with vitamin C for your health.</p>
+        <div class="flex items-center mb-2 text-yellow-400">★★★★★</div>
+        <p class="text-lg font-bold mb-2">$4.49 / kg</p>
+        <button class="addToCart bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded w-full transition"
+          data-name="Oranges" data-price="4.49">Add to Cart</button>
+      </div>
+
+      <!-- Product Card 7 -->
+      <div class="bg-gray-100 rounded-lg shadow-lg overflow-hidden hover:shadow-2xl transition p-4">
+        <img src="images (4).jpg" alt="Mango Slice" class="w-full h-48 object-cover mb-4 rounded-lg">
+        <h3 class="text-xl font-semibold mb-2">Mango Slice</h3>
+        <p class="text-gray-700 mb-2">Sweet mango slices for smoothies and desserts.</p>
+        <div class="flex items-center mb-2 text-yellow-400">★★★★☆</div>
+        <p class="text-lg font-bold mb-2">$5.49 / kg</p>
+        <button class="addToCart bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded w-full transition"
+          data-name="Mango Slice" data-price="5.49">Add to Cart</button>
+      </div>
+
+      <!-- Product Card 8 -->
+      <div class="bg-gray-100 rounded-lg shadow-lg overflow-hidden hover:shadow-2xl transition p-4">
+        <img src="carrot.jpg" alt="Carrots" class="w-full h-48 object-cover mb-4 rounded-lg">
+        <h3 class="text-xl font-semibold mb-2">Organic Carrots</h3>
+        <p class="text-gray-700 mb-2">Crunchy organic carrots perfect for salads and snacks.</p>
+        <div class="flex items-center mb-2 text-yellow-400">★★★★★</div>
+        <p class="text-lg font-bold mb-2">$3.29 / kg</p>
+        <button  class="addToCart bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded w-full transition" 
+          data-name="Organic Carrots" data-price="3.29">Add to Cart</button>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+
+<!-- CART SIDEBAR -->
+<div id="cartSidebar"
+     class="fixed right-0 top-0 h-full w-80 bg-white shadow-xl transform translate-x-full transition-all duration-300 z-50">
+
+  <div class="p-6 flex justify-between items-center border-b">
+    <h2 class="text-2xl font-bold">Your Cart</h2>
+    <button id="closeCart" class="text-xl font-bold">&times;</button>
+  </div>
+
+  <div id="cartItems" class="p-4 space-y-4 overflow-y-auto h-[70%]"></div>
+
+  <div class="p-4 border-t bg-gray-50">
+    <p class="text-xl font-bold mb-2">Total: $<span id="totalAmount">0.00</span></p>
+    <button class="w-full bg-green-600 hover:bg-green-700 text-white py-2 rounded">
+      Checkout
+    </button>
+  </div>
+</div>
+
+<!-- Animated Stats Section -->
+<section class="py-16 bg-gray-50">
+  <div class="container mx-auto px-6 text-center">
+    <h2 class="text-3xl font-bold mb-12">Our Impact in Numbers</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-8">
+
+      <div class="bg-white p-6 rounded-lg shadow hover:shadow-xl transition">
+        <h3 class="text-4xl font-bold text-orange-500 mb-2 count" data-target="5000">0</h3>
+        <p class="text-gray-700">Happy Customers</p>
+      </div>
+
+      <div class="bg-white p-6 rounded-lg shadow hover:shadow-xl transition">
+        <h3 class="text-4xl font-bold text-orange-500 mb-2 count" data-target="12000">0</h3>
+        <p class="text-gray-700">Kg of Fresh Produce Sold</p>
+      </div>
+
+      <div class="bg-white p-6 rounded-lg shadow hover:shadow-xl transition">
+        <h3 class="text-4xl font-bold text-orange-500 mb-2 count" data-target="150">0</h3>
+        <p class="text-gray-700">Organic Farms Partnered</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script>
+  const counters = document.querySelectorAll(".count");
+  counters.forEach(counter => {
+    const updateCount = () => {
+      const target = +counter.getAttribute("data-target");
+      const count = +counter.innerText;
+      const speed = 50; // lower = faster
+      const increment = target / speed;
+
+      if (count < target) {
+        counter.innerText = Math.ceil(count + increment);
+        setTimeout(updateCount, 30);
+      } else {
+        counter.innerText = target;
+      }
+    };
+    updateCount();
+  });
+</script>
+
+
+
+
+<!-- Services Scroll Section -->
+<section class="py-16 bg-gray-50">
+  <div class="container mx-auto px-6">
+    <h2 class="text-3xl font-bold text-center mb-10">Our Services</h2>
+
+    <!-- Scrollable Container -->
+    <div class="flex gap-6 overflow-x-auto pb-4 scroll-smooth">
+
+      <!-- Card 1: Product Packing -->
+      <div class="min-w-[280px] bg-white shadow-lg rounded-xl p-6 flex-shrink-0 hover:shadow-2xl transition">
+        <div class="text-orange-500 text-4xl mb-3">📦</div>
+        <h3 class="text-xl font-bold mb-2">Product Packing</h3>
+        <p class="text-gray-700">We pack every product with extra care to maintain freshness.</p>
+      </div>
+
+      <!-- Card 2: 24/7 Support -->
+      <div class="min-w-[280px] bg-white shadow-lg rounded-xl p-6 flex-shrink-0 hover:shadow-2xl transition">
+        <div class="text-orange-500 text-4xl mb-3">💬</div>
+        <h3 class="text-xl font-bold mb-2">24/7 Support</h3>
+        <p class="text-gray-700">Our support team is available anytime to help you.</p>
+      </div>
+
+      <!-- Card 3: Delivery in 5 Days -->
+      <div class="min-w-[280px] bg-white shadow-lg rounded-xl p-6 flex-shrink-0 hover:shadow-2xl transition">
+        <div class="text-orange-500 text-4xl mb-3">🚚</div>
+        <h3 class="text-xl font-bold mb-2">Fast Delivery</h3>
+        <p class="text-gray-700">We deliver all your orders safely within 5 working days.</p>
+      </div>
+
+      <!-- Card 4: Secure Payment -->
+      <div class="min-w-[280px] bg-white shadow-lg rounded-xl p-6 flex-shrink-0 hover:shadow-2xl transition">
+        <div class="text-orange-500 text-4xl mb-3">🔒</div>
+        <h3 class="text-xl font-bold mb-2">Secure Payment</h3>
+        <p class="text-gray-700">Your payment is encrypted and fully protected.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+
+<!-- Hero Section: 35% OFF Carrot Healthy Foods -->
+<section 
+  class="relative w-full py-20 bg-cover bg-center"
+  style="background-image: url('make\ a\ image\ of\ healthy\ food\ and\ vegetable\ -\ Shortcut.lnk');">
+
+  <!-- Dark Overlay -->
+  <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+
+  <!-- Content (Left-aligned) -->
+  <div class="relative z-10 container mx-auto px-6 flex justify-start text-left text-white">
+    <div class="max-w-lg">
+      <h1 class="text-5xl md:text-6xl font-bold mb-4">35% OFF Organic Foods</h1>
+      <p class="text-xl md:text-2xl mb-6">Grab the healthiest and freshest organic products today!</p>
+
+      <!-- Countdown Timer -->
+      <div class="flex gap-4 text-center mb-6">
+        <div>
+          <p id="days" class="text-4xl font-bold">00</p>
+          <span class="text-lg">Days</span>
+        </div>
+        <div>
+          <p id="hours" class="text-4xl font-bold">00</p>
+          <span class="text-lg">Hours</span>
+        </div>
+        <div>
+          <p id="minutes" class="text-4xl font-bold">00</p>
+          <span class="text-lg">Minutes</span>
+        </div>
+        <div>
+          <p id="seconds" class="text-4xl font-bold">00</p>
+          <span class="text-lg">Seconds</span>
+        </div>
+      </div>
+
+      <!-- CTA Button -->
+      <button class="bg-orange-500 hover:bg-orange-600 text-white px-8 py-3 rounded text-lg transition">
+        Shop Now
+      </button>
+    </div>
+  </div>
+</section>
+
+<section class="py-16 bg-white">
+  <div class="container mx-auto px-6">
+    <h2 class="text-3xl font-bold text-center mb-10">Build Your Box 🥦🍎</h2>
+    <div class="flex flex-col md:flex-row gap-6">
+      <!-- Product Selection -->
+      <div class="flex-1 bg-gray-100 p-6 rounded-lg shadow-lg">
+        <h3 class="text-xl font-semibold mb-4">Choose Products</h3>
+        <div class="space-y-2">
+          <label class="flex items-center gap-2"><input type="checkbox" class="w-5 h-5"> Apples</label>
+          <label class="flex items-center gap-2"><input type="checkbox" class="w-5 h-5"> Carrots</label>
+          <label class="flex items-center gap-2"><input type="checkbox" class="w-5 h-5"> Mangoes</label>
+          <label class="flex items-center gap-2"><input type="checkbox" class="w-5 h-5"> Strawberries</label>
+        </div>
+      </div>
+      <!-- Summary / Add Button -->
+      <div class="flex-1 bg-gray-100 p-6 rounded-lg shadow-lg flex flex-col justify-between">
+        <h3 class="text-xl font-semibold mb-4">Your Box</h3>
+        <ul id="customBoxList" class="mb-4 text-gray-700 space-y-1">
+          <li>No products selected</li>
+        </ul>
+        <button id="addBoxBtn" class="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded w-full transition">Add Box to Cart</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+const list = document.getElementById('customBoxList');
+checkboxes.forEach(cb => cb.addEventListener('change', updateBox));
+
+function updateBox() {
+  const selected = Array.from(checkboxes).filter(c => c.checked).map(c => c.parentNode.textContent.trim());
+  list.innerHTML = selected.length ? selected.map(item => `<li>${item}</li>`).join('') : '<li>No products selected</li>';
+}
+document.getElementById('addBoxBtn').addEventListener('click', () => alert('Box added to cart!'));
+</script>
+
+
+<!-- Testimonials Section -->
+<section class="py-16 bg-gray-100">
+  <div class="container mx-auto px-6">
+    <h2 class="text-3xl font-bold text-center mb-12">What People Say About Carrot Healthy Foods</h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+      <!-- Card 1 -->
+      <div class="bg-white shadow-lg rounded-lg p-6 text-center hover:shadow-2xl transition">
+        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Person 1" class="w-20 h-20 mx-auto rounded-full mb-4">
+        <h3 class="text-xl font-semibold mb-2">Sarah Williams</h3>
+        <p class="text-gray-700 mb-3">"The fresh fruits and vegetables from Carrot are amazing. I feel healthier every day!"</p>
+        <div class="flex justify-center text-yellow-400">
+          <span>★★★★★</span>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="bg-white shadow-lg rounded-lg p-6 text-center hover:shadow-2xl transition">
+        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Person 2" class="w-20 h-20 mx-auto rounded-full mb-4">
+        <h3 class="text-xl font-semibold mb-2">John Doe</h3>
+        <p class="text-gray-700 mb-3">"I love the organic products. Delivery is fast and everything is perfectly packed."</p>
+        <div class="flex justify-center text-yellow-400">
+          <span>★★★★☆</span>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="bg-white shadow-lg rounded-lg p-6 text-center hover:shadow-2xl transition">
+        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Person 3" class="w-20 h-20 mx-auto rounded-full mb-4">
+        <h3 class="text-xl font-semibold mb-2">Emily Johnson</h3>
+        <p class="text-gray-700 mb-3">"Carrot Healthy Foods has changed the way I eat. Fresh, delicious, and reliable!"</p>
+        <div class="flex justify-center text-yellow-400">
+          <span>★★★★★</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Loyalty Points Section -->
+<section class="py-16 bg-white">
+  <div class="container mx-auto px-6 text-center">
+    <h2 class="text-3xl font-bold mb-6">Earn Loyalty Points</h2>
+    <p class="text-gray-700 mb-8">Shop more, earn more! Redeem your points for discounts on your favorite organic products.</p>
+    
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-8">
+      <div class="bg-gray-100 p-6 rounded-lg shadow hover:shadow-xl transition transform hover:scale-105">
+        <div class="text-4xl text-orange-500 mb-4">🛒</div>
+        <h3 class="text-xl font-semibold mb-2">1 Point / $1</h3>
+        <p class="text-gray-600">Every dollar spent earns you loyalty points.</p>
+      </div>
+      <div class="bg-gray-100 p-6 rounded-lg shadow hover:shadow-xl transition transform hover:scale-105">
+        <div class="text-4xl text-orange-500 mb-4">🎁</div>
+        <h3 class="text-xl font-semibold mb-2">Redeem Rewards</h3>
+        <p class="text-gray-600">Use points to get discounts on your next purchase.</p>
+      </div>
+      <div class="bg-gray-100 p-6 rounded-lg shadow hover:shadow-xl transition transform hover:scale-105">
+        <div class="text-4xl text-orange-500 mb-4">⭐</div>
+        <h3 class="text-xl font-semibold mb-2">Exclusive Offers</h3>
+        <p class="text-gray-600">Loyal customers get access to special deals and promotions.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="py-16 bg-gray-50">
+  <div class="container mx-auto px-6 text-center">
+    <h2 class="text-3xl font-bold mb-10">🌱 Our Eco Impact</h2>
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+      <div class="p-6 bg-white rounded-lg shadow-lg">
+        <p class="text-4xl font-bold text-green-600" id="co2Saved">0</p>
+        <p class="mt-2 text-gray-700">kg CO₂ Saved</p>
+      </div>
+      <div class="p-6 bg-white rounded-lg shadow-lg">
+        <p class="text-4xl font-bold text-green-600" id="treesPlanted">0</p>
+        <p class="mt-2 text-gray-700">Trees Planted</p>
+      </div>
+      <div class="p-6 bg-white rounded-lg shadow-lg">
+        <p class="text-4xl font-bold text-green-600" id="organicDelivered">0</p>
+        <p class="mt-2 text-gray-700">kg Organic Products Delivered</p>
+      </div>
+      <div class="p-6 bg-white rounded-lg shadow-lg">
+        <p class="text-4xl font-bold text-green-600" id="customersHappy">0</p>
+        <p class="mt-2 text-gray-700">Happy Customers</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+function animateCounter(id, end) {
+  let count = 0;
+  const interval = setInterval(() => {
+    count += Math.ceil(end/100);
+    if(count >= end){ count = end; clearInterval(interval); }
+    document.getElementById(id).innerText = count;
+  }, 20);
+}
+
+animateCounter('co2Saved', 1500);
+animateCounter('treesPlanted', 120);
+animateCounter('organicDelivered', 5000);
+animateCounter('customersHappy', 350);
+</script>
+
+
+<section class="py-16 bg-gray-50">
+  <div class="container mx-auto px-6 text-center">
+    <h2 class="text-3xl font-bold mb-10">Which Smoothie Suits You? 🥤</h2>
+    <div id="quiz" class="space-y-4 max-w-md mx-auto">
+      <div>
+        <p>1. Choose your favorite flavor:</p>
+        <select id="q1" class="border rounded px-3 py-2 w-full">
+          <option value="">Select</option>
+          <option value="fruity">Fruity</option>
+          <option value="green">Green</option>
+          <option value="tropical">Tropical</option>
+        </select>
+      </div>
+      <div>
+        <p>2. Pick a health goal:</p>
+        <select id="q2" class="border rounded px-3 py-2 w-full">
+          <option value="">Select</option>
+          <option value="energy">Energy Boost</option>
+          <option value="detox">Detox</option>
+          <option value="immune">Immune Support</option>
+        </select>
+      </div>
+      <button id="quizBtn" class="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded w-full transition">See Recommendation</button>
+    </div>
+    <p id="quizResult" class="mt-4 font-bold text-lg text-orange-600"></p>
+  </div>
+</section>
+
+<script>
+document.getElementById('quizBtn').addEventListener('click', () => {
+  const q1 = document.getElementById('q1').value;
+  const q2 = document.getElementById('q2').value;
+  if(!q1 || !q2){ alert('Please answer both questions!'); return; }
+
+  let result = '';
+  if(q1 === 'fruity' && q2 === 'energy') result = 'Strawberry Banana Smoothie 🍓🍌';
+  else if(q1 === 'green' && q2 === 'detox') result = 'Green Detox Smoothie 🥬🥒';
+  else if(q1 === 'tropical' && q2 === 'immune') result = 'Mango Immunity Smoothie 🥭🍊';
+  else result = 'Mixed Fruit Smoothie 🍎🍍';
+
+  document.getElementById('quizResult').innerText = `We recommend: ${result}`;
+});
+</script>
+
+
+<section class="py-16 bg-gray-50">
+  <div class="container mx-auto px-6 text-center">
+    <h2 class="text-3xl font-bold mb-10">Weekly Subscription Box 📦</h2>
+    <p class="text-gray-700 mb-6">Get fresh fruits & vegetables delivered to your door every week.</p>
+    <div class="flex flex-col md:flex-row justify-center gap-6">
+      <div class="bg-white p-6 rounded-lg shadow-lg flex-1">
+        <h3 class="text-xl font-semibold mb-2">Basic Box</h3>
+        <p class="text-gray-700 mb-4">5-6 types of fresh fruits & veggies</p>
+        <p class="text-lg font-bold mb-4">$25/week</p>
+        <button class="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded w-full transition">Subscribe</button>
+      </div>
+      <div class="bg-white p-6 rounded-lg shadow-lg flex-1">
+        <h3 class="text-xl font-semibold mb-2">Family Box</h3>
+        <p class="text-gray-700 mb-4">10+ types of fresh fruits & veggies</p>
+        <p class="text-lg font-bold mb-4">$45/week</p>
+        <button class="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded w-full transition">Subscribe</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="py-16 bg-cover bg-center relative" style="background-image: url('land.jpg');">
+  <div class="container mx-auto px-6 relative z-10">
+    <h2 class="text-3xl font-bold text-center mb-10 text-white">Farm to Table 🌾➡️🍽️</h2>
+    <div class="relative border-l-2 border-orange-500 ml-4">
+      <div class="mb-8 ml-6">
+        <div class="bg-orange-500 w-4 h-4 rounded-full -left-3 absolute mt-1"></div>
+        <h3 class="font-semibold text-xl text-white">Harvesting</h3>
+        <p class="text-white text-opacity-90">Fresh produce is carefully harvested from local farms.</p>
+      </div>
+      <div class="mb-8 ml-6">
+        <div class="bg-orange-500 w-4 h-4 rounded-full -left-3 absolute mt-1"></div>
+        <h3 class="font-semibold text-xl text-white">Packing</h3>
+        <p class="text-white text-opacity-90">Products are packed with care to maintain freshness.</p>
+      </div>
+      <div class="mb-8 ml-6">
+        <div class="bg-orange-500 w-4 h-4 rounded-full -left-3 absolute mt-1"></div>
+        <h3 class="font-semibold text-xl text-white">Delivery</h3>
+        <p class="text-white text-opacity-90">Delivered straight to your door, fresh and ready to eat.</p>
+      </div>
+      <div class="ml-6">
+        <div class="bg-orange-500 w-4 h-4 rounded-full -left-3 absolute mt-1"></div>
+        <h3 class="font-semibold text-xl text-white">Enjoy!</h3>
+        <p class="text-white text-opacity-90">Enjoy fresh, healthy, and organic produce every day.</p>
+      </div>
+    </div>
+  </div>
+  <!-- Optional: overlay for better text contrast -->
+  <div class="absolute inset-0 bg-black opacity-40"></div>
+</section>
+
+
+
+<!-- 4th Navbar -->
+<!-- Navbar -->
+<header class="bg-orange-500 shadow-md sticky top-0 z-50">
+  <div class="container mx-auto flex justify-between items-center px-6 py-4">
+    <div class="flex items-center gap-2">
+      <img src="https://cdn-icons-png.flaticon.com/512/1046/1046784.png" alt="Carrot Logo" class="h-10">
+      <span class="text-white text-2xl font-bold">Carrot</span>
+    </div>
+    <nav>
+      <ul class="flex gap-6">
+        <li><a href="index.html" class="text-white font-semibold hover:text-yellow-100 transition">Home</a></li>
+        <li><a href="biodata.html" class="text-white font-semibold hover:text-yellow-100 transition border-b-2 border-white">Biodata</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<script>
+  document.getElementById('biodataBtn').addEventListener('click', () => {
+    window.location.href = 'biodata.html';
+  });
+</script>
+
+
+
+<!-- Footer Section -->
+<footer class="bg-gray-900 text-white py-12">
+  <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-8">
+
+    <!-- Logo & About -->
+    <div>
+      <div class="flex items-center mb-4">
+        <img src="https://cdn-icons-png.flaticon.com/512/1046/1046784.png" alt="Carrot Logo" class="h-10 mr-2">
+        <span class="text-2xl font-bold">Carrot</span>
+      </div>
+      <p class="text-gray-400">Fresh and organic fruits & vegetables delivered straight to your door. Eat healthy, live healthy.</p>
+    </div>
+
+    <!-- Quick Links -->
+    <div>
+      <h3 class="text-xl font-semibold mb-4">Quick Links</h3>
+      <ul class="space-y-2">
+        <li><a href="#" class="hover:text-orange-500 transition">Home</a></li>
+        <li><a href="#" class="hover:text-orange-500 transition">Products</a></li>
+        <li><a href="#" class="hover:text-orange-500 transition">Blog</a></li>
+        <li><a href="#" class="hover:text-orange-500 transition">Contact</a></li>
+      </ul>
+    </div>
+
+    <!-- Social Links -->
+    <div>
+      <h3 class="text-xl font-semibold mb-4">Follow Us</h3>
+      <div class="flex gap-4">
+        <a href="#" class="hover:text-orange-500 transition text-2xl">📘</a>
+        <a href="#" class="hover:text-orange-500 transition text-2xl">📸</a>
+        <a href="#" class="hover:text-orange-500 transition text-2xl">🐦</a>
+      </div>
+    </div>
+
+    <!-- Newsletter -->
+    <div>
+      <h3 class="text-xl font-semibold mb-4">Newsletter</h3>
+      <p class="text-gray-400 mb-4">Subscribe to get latest updates and offers.</p>
+      <div class="flex">
+        <input type="email" placeholder="Enter your email" class="w-full px-3 py-2 rounded-l-md focus:outline-none">
+        <button class="bg-orange-500 hover:bg-orange-600 px-4 rounded-r-md text-white transition">Subscribe</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Footer Bottom -->
+  <div class="mt-12 border-t border-gray-700 pt-6 text-center text-gray-500 text-sm">
+    &copy; 2025 Carrot Healthy Foods. All rights reserved.
+  </div>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  // --- SEARCH (kept unchanged) ---
+  window.performSearch = function() {
+    const query = document.getElementById('searchInput').value;
+    if (query.trim() !== "") {
+      alert(` You searched for : ${query}`);
+    } else {
+      alert("Please enter a search term!");
+    }
+  };
+
+  // --- FLOATING FRUITS (kept) ---
+  (function createFloating() {
+    const floatingContainer = document.getElementById('floating-elements');
+    if (!floatingContainer) return;
+    const items = ['🍎','🍊','🥕','🍇','🥦','🍉','🍌','🍓'];
+    for (let i = 0; i < 20; i++) {
+      const item = document.createElement('div');
+      item.innerText = items[Math.floor(Math.random() * items.length)];
+      item.className = 'absolute text-4xl md:text-5xl animate-float';
+      item.style.top = Math.random() * 100 + '%';
+      item.style.left = Math.random() * 100 + '%';
+      item.style.animationDuration = (5 + Math.random() * 5) + 's';
+      floatingContainer.appendChild(item);
+    }
+  })();
+
+  // --- CATEGORY IMAGES (kept but safe) ---
+  const images = {
+    vegetables: ["intro-1720461077.jpg","carrot.jpg"],
+    apple: ["aple.avif","ap.cms"],
+    mango: ["images.jpg","images (1).jpg"],
+    strawberry: ["images (3).jpg","h.jpeg"]
+  };
+  window.updateCards = function(category) {
+    try {
+      if (!images[category]) return;
+      const c1 = document.querySelector("#card1 img");
+      const c2 = document.querySelector("#card2 img");
+      if (c1 && images[category][0]) c1.src = images[category][0];
+      if (c2 && images[category][1]) c2.src = images[category][1];
+    } catch (e) { console.warn(e); }
+  };
+
+  // --- COUNTDOWN ---
+  (function countdown() {
+    const offerEndDate = new Date("2025-12-31T23:59:59").getTime();
+    function updateCountdown() {
+      const now = Date.now();
+      const distance = offerEndDate - now;
+      const daysEl = document.getElementById("days");
+      const hoursEl = document.getElementById("hours");
+      const minutesEl = document.getElementById("minutes");
+      const secondsEl = document.getElementById("seconds");
+      if (!daysEl || !hoursEl || !minutesEl || !secondsEl) return;
+      if (distance <= 0) {
+        daysEl.innerText = "00";
+        hoursEl.innerText = "00";
+        minutesEl.innerText = "00";
+        secondsEl.innerText = "00";
+        return;
+      }
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      daysEl.innerText = days;
+      hoursEl.innerText = hours;
+      minutesEl.innerText = minutes;
+      secondsEl.innerText = seconds;
+    }
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+  })();
+
+  // --- WISHLIST BUTTON: check account then redirect ---
+  (function wishlistHandler() {
+    const wishlistBtn = document.getElementById("wishlistBtn");
+    if (!wishlistBtn) return;
+    wishlistBtn.addEventListener("click", () => {
+      const userAccount = localStorage.getItem("userAccount");
+      if (!userAccount) {
+        window.location.href = "account.html";
+      } else {
+        window.location.href = "wishlist.html";
+      }
+    });
+  })();
+
+  // --- CART / SIDEBAR LOGIC (robust, uses localStorage) ---
+  (function cartSystem() {
+    const cartSidebar = document.getElementById("cartSidebar");
+    const cartItemsContainer = document.getElementById("cartItems");
+    const totalAmountEl = document.getElementById("totalAmount");
+    const closeCartBtn = document.getElementById("closeCart");
+
+    if (!cartSidebar || !cartItemsContainer || !totalAmountEl) return;
+
+    // load cart from localStorage
+    let cart = JSON.parse(localStorage.getItem("cart") || "[]");
+
+    // Helper: save
+    function saveCart() {
+      localStorage.setItem("cart", JSON.stringify(cart));
+    }
+
+    // Helper: open/close
+    function openCart() {
+      cartSidebar.classList.remove("translate-x-full");
+    }
+    function closeCart() {
+      cartSidebar.classList.add("translate-x-full");
+    }
+    if (closeCartBtn) closeCartBtn.addEventListener("click", closeCart);
+
+    // Display cart content
+    function displayCart() {
+      cartItemsContainer.innerHTML = "";
+      let total = 0;
+      if (cart.length === 0) {
+        cartItemsContainer.innerHTML = `<p class="text-gray-600">Cart is empty.</p>`;
+        totalAmountEl.innerText = "0.00";
+        return;
+      }
+
+      cart.forEach((item, idx) => {
+        total += (parseFloat(item.price) || 0) * (item.quantity || 1);
+        const itemEl = document.createElement("div");
+        itemEl.className = "p-3 bg-gray-100 rounded";
+        itemEl.innerHTML = `
+          <div class="flex justify-between items-center">
+            <h3 class="font-semibold">${escapeHtml(item.name)}</h3>
+            <button data-idx="${idx}" class="removeItem text-red-600 text-sm">Remove</button>
+          </div>
+          <p class="text-sm text-gray-700">$${(parseFloat(item.price) || 0).toFixed(2)}</p>
+          <div class="flex items-center gap-3 mt-2">
+            <button data-idx="${idx}" class="decQty px-2 bg-gray-300 rounded">-</button>
+            <span class="font-bold">${item.quantity}</span>
+            <button data-idx="${idx}" class="incQty px-2 bg-gray-300 rounded">+</button>
+          </div>
+        `;
+        cartItemsContainer.appendChild(itemEl);
+      });
+
+      // attach event listeners for newly created controls
+      cartItemsContainer.querySelectorAll('.removeItem').forEach(b => {
+        b.addEventListener('click', (e) => {
+          const i = parseInt(e.currentTarget.dataset.idx, 10);
+          cart.splice(i, 1);
+          saveCart();
+          displayCart();
+        });
+      });
+      cartItemsContainer.querySelectorAll('.incQty').forEach(b => {
+        b.addEventListener('click', (e) => {
+          const i = parseInt(e.currentTarget.dataset.idx, 10);
+          cart[i].quantity = (cart[i].quantity || 1) + 1;
+          saveCart();
+          displayCart();
+        });
+      });
+      cartItemsContainer.querySelectorAll('.decQty').forEach(b => {
+        b.addEventListener('click', (e) => {
+          const i = parseInt(e.currentTarget.dataset.idx, 10);
+          if (cart[i].quantity > 1) cart[i].quantity--;
+          saveCart();
+          displayCart();
+        });
+      });
+
+      totalAmountEl.innerText = total.toFixed(2);
+    }
+
+    // add to cart buttons
+    document.querySelectorAll(".addToCart").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const name = btn.dataset.name;
+        const price = btn.dataset.price;
+        const img = btn.dataset.img || "";
+
+        if (!name || !price) {
+          console.warn("Product missing data-name or data-price");
+          return;
+        }
+
+        // find existing product (match by name)
+        const existing = cart.find(p => p.name === name);
+        if (existing) {
+          existing.quantity = (existing.quantity || 1) + 1;
+        } else {
+          cart.push({ name, price: parseFloat(price).toFixed(2), img, quantity: 1 });
+        }
+
+        saveCart();
+        displayCart();
+        openCart();
+      });
+    });
+
+    // initialize display on load
+    displayCart();
+  })();
+
+  // utility: simple HTML escape for text output
+  function escapeHtml(text) {
+    if (typeof text !== 'string') return text;
+    return text.replace(/[&<>"']/g, function(m) {
+      return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[m];
+    });
+  }
+});
+</script>
+
+
+</script>
+
+
+</script>
+
+</body>
+</html>
